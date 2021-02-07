@@ -22,8 +22,8 @@ Route::get('/products', 'App\Http\Controllers\ProductController@index');
 
 Route::get('/products/{id}', 'App\Http\Controllers\ProductController@show');
 
-Route::post('/products','App\Http\Controllers\ProductController@store');
+Route::post('/products', 'App\Http\Controllers\ProductController@store');
 
-Route::patch('/products/{id}','App\Http\Controllers\ProductController@update');
+Route::patch('/products/{id}', 'App\Http\Controllers\ProductController@update');
 
-Route::delete('/products/{id}','App\Http\Controllers\ProductController@destroy');
+Route::delete('/products/{id}', 'App\Http\Controllers\ProductController@destroy');
