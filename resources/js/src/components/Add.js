@@ -13,7 +13,7 @@ const Add = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
-    const [dropDown, setDropDown] = useState([]);
+    const [selected, setSelected] = useState(1);
 
 
     const onAddSubmit = async () => {
@@ -23,7 +23,7 @@ const Add = () => {
                 "name": title,
                 "description": description,
                 "price": price,
-                "manufacturer_id": dropDown
+                "manufacturer_id": selected
             };
             await api.addProduct(product);
             history.push('/');
@@ -55,15 +55,14 @@ const Add = () => {
             );
         } else {
             return manufacturers.map((manufacturer) => (
-                <option key={manufacturer.id} >{manufacturer.name}</option>
+                <option key={manufacturer.id} id={manufacturer.id}>{manufacturer.name}</option>
             ));
         }
     }
 
-
     const handleChange = (e) => {
-        setDropDown(e.id);
-        console.log(e.target.value);
+        var id = $(e.target).children(":selected").attr("id");
+        setSelected(id);
     }
 
     return (

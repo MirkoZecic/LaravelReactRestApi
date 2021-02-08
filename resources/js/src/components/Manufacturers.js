@@ -7,16 +7,17 @@ const Manufacturer = () => {
     const [loadingProducts, setLoadingProducts] = useState(false);
     const [manufacturers, setManufacturers] = useState([]);
     const [products, setProducts] = useState([]);
+    const [selected, setSelected] = useState(1);
 
-
-    const popuniProizvode = () => {
-        fetchProducts();
+    const popuniProizvode = (e) => {
+        var id = $(e.target).children(":selected").attr("id");
+        setSelected(id);
     }
 
     const rezultat = () => {
-        if (!products) {
+        if (loadingProducts) {
             return (
-                <AppContaner title="No data to show">
+                <AppContaner title="Loading">
                     <span>Loading products...</span>
                 </AppContaner>
             );
@@ -42,7 +43,7 @@ const Manufacturer = () => {
 
     const fetchProducts = async () => {
         setLoadingProducts(true);
-        api.getAllManufecturerProducts(1).then(res => {
+        api.getAllManufecturerProducts(selected).then(res => {
             const result = res.data;
             const prods = result.products;
             setProducts(prods);
@@ -57,7 +58,7 @@ const Manufacturer = () => {
             );
         } else {
             return manufacturers.map((manufacturer) => (
-                <option key={manufacturer.id} >{manufacturer.name}</option>
+                <option key={manufacturer.id} id={manufacturer.id}>{manufacturer.name}</option>
             ));
         }
     }
@@ -75,6 +76,10 @@ const Manufacturer = () => {
     useEffect(() => {
         fetchManufacturers();
     }, []);
+
+    useEffect(() => {
+        fetchProducts();
+    }, [selected]);
 
     return (
         <>

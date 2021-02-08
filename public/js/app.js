@@ -2191,10 +2191,10 @@ var Add = function Add() {
       price = _useState12[0],
       setPrice = _useState12[1];
 
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(1),
       _useState14 = _slicedToArray(_useState13, 2),
-      dropDown = _useState14[0],
-      setDropDown = _useState14[1];
+      selected = _useState14[0],
+      setSelected = _useState14[1];
 
   var onAddSubmit = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -2209,7 +2209,7 @@ var Add = function Add() {
                 "name": title,
                 "description": description,
                 "price": price,
-                "manufacturer_id": dropDown
+                "manufacturer_id": selected
               };
               _context.next = 5;
               return _api__WEBPACK_IMPORTED_MODULE_3__.default.addProduct(product);
@@ -2281,6 +2281,7 @@ var Add = function Add() {
     } else {
       return manufacturers.map(function (manufacturer) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+          id: manufacturer.id,
           children: manufacturer.name
         }, manufacturer.id);
       });
@@ -2288,8 +2289,8 @@ var Add = function Add() {
   };
 
   var handleChange = function handleChange(e) {
-    setDropDown(e.id);
-    console.log(e.target.value);
+    var id = $(e.target).children(":selected").attr("id");
+    setSelected(id);
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_AppContainer__WEBPACK_IMPORTED_MODULE_2__.default, {
@@ -2414,12 +2415,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _AppContainer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AppContainer */ "./resources/js/src/components/AppContainer.js");
 /* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api */ "./resources/js/src/api.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2445,32 +2444,46 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 var Edit = function Edit() {
-  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useParams)(),
+  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useParams)(),
       id = _useParams.id;
 
-  var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useHistory)();
+  var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useHistory)();
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
       loading = _useState2[0],
       setLoading = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState4 = _slicedToArray(_useState3, 2),
-      name = _useState4[0],
-      setName = _useState4[1];
+      loadingManufacturers = _useState4[0],
+      setLoadingManufacturers = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState6 = _slicedToArray(_useState5, 2),
-      description = _useState6[0],
-      setDescription = _useState6[1];
+      manufacturers = _useState6[0],
+      setManufacturers = _useState6[1];
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
       _useState8 = _slicedToArray(_useState7, 2),
-      price = _useState8[0],
-      setPrice = _useState8[1];
+      name = _useState8[0],
+      setName = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
+      _useState10 = _slicedToArray(_useState9, 2),
+      description = _useState10[0],
+      setDescription = _useState10[1];
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
+      _useState12 = _slicedToArray(_useState11, 2),
+      price = _useState12[0],
+      setPrice = _useState12[1];
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+      _useState14 = _slicedToArray(_useState13, 2),
+      selected = _useState14[0],
+      setSelected = _useState14[1];
 
   var onEditSubmit = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -2485,7 +2498,7 @@ var Edit = function Edit() {
                 "name": name,
                 "description": description,
                 "price": price,
-                "manufacturer_id": manufacturer_id
+                "manufacturer_id": selected
               };
               _context.next = 5;
               return _api__WEBPACK_IMPORTED_MODULE_3__.default.updateProduct(product, id);
@@ -2518,23 +2531,73 @@ var Edit = function Edit() {
     };
   }();
 
+  var fetchManufacturers = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              setLoadingManufacturers(true);
+              _api__WEBPACK_IMPORTED_MODULE_3__.default.getAllManufacturers().then(function (res) {
+                var result = res.data;
+                var mans = result.manufacturers;
+                setManufacturers(mans);
+              });
+              setLoadingManufacturers(false);
+
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function fetchManufacturers() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  var ispisiManufacturere = function ispisiManufacturere() {
+    if (loadingManufacturers) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+        children: "Loading manufacturers"
+      });
+    } else {
+      return manufacturers.map(function (manufacturer) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+          id: manufacturer.id,
+          selected: selected === manufacturer.id,
+          children: manufacturer.name
+        }, manufacturer.id);
+      });
+    }
+  };
+
+  var handleChange = function handleChange(e) {
+    var id = $(e.target).children(":selected").attr("id");
+    setSelected(id);
+  };
+
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    fetchManufacturers();
     _api__WEBPACK_IMPORTED_MODULE_3__.default.getOneProduct(id).then(function (res) {
       var result = res.data;
       var product = result.product;
       setName(product.name);
       setDescription(product.description);
       setPrice(product.price);
+      setSelected(product.manufacturer_id);
     });
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_AppContainer__WEBPACK_IMPORTED_MODULE_2__.default, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_AppContainer__WEBPACK_IMPORTED_MODULE_2__.default, {
     title: "EDIT Product",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("form", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "form-group",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
           children: "Product Name"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
           className: "form-control",
           type: "text",
           value: name,
@@ -2542,22 +2605,22 @@ var Edit = function Edit() {
             return setName(e.target.value);
           }
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "form-group",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
           children: "Description"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("textarea", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("textarea", {
           className: "form-control",
           value: description,
           onChange: function onChange(e) {
             return setDescription(e.target.value);
           }
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "form-group",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
           children: "Price"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
           className: "form-control",
           type: "text",
           value: price,
@@ -2565,9 +2628,19 @@ var Edit = function Edit() {
             return setPrice(e.target.value);
           }
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "form-group",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+          children: "Manufacturer"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("select", {
+          onChange: handleChange,
+          className: "custom-select",
+          "aria-label": "Default select example",
+          children: ispisiManufacturere()
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "form-group",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
           type: "button",
           className: "btn btn-success",
           onClick: onEditSubmit,
@@ -2806,14 +2879,20 @@ var Manufacturer = function Manufacturer() {
       products = _useState8[0],
       setProducts = _useState8[1];
 
-  var popuniProizvode = function popuniProizvode() {
-    fetchProducts();
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(1),
+      _useState10 = _slicedToArray(_useState9, 2),
+      selected = _useState10[0],
+      setSelected = _useState10[1];
+
+  var popuniProizvode = function popuniProizvode(e) {
+    var id = $(e.target).children(":selected").attr("id");
+    setSelected(id);
   };
 
   var rezultat = function rezultat() {
-    if (!products) {
+    if (loadingProducts) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_AppContainer__WEBPACK_IMPORTED_MODULE_2__.default, {
-        title: "No data to show",
+        title: "Loading",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
           children: "Loading products..."
         })
@@ -2856,7 +2935,7 @@ var Manufacturer = function Manufacturer() {
           switch (_context.prev = _context.next) {
             case 0:
               setLoadingProducts(true);
-              _api__WEBPACK_IMPORTED_MODULE_3__.default.getAllManufecturerProducts(1).then(function (res) {
+              _api__WEBPACK_IMPORTED_MODULE_3__.default.getAllManufecturerProducts(selected).then(function (res) {
                 var result = res.data;
                 var prods = result.products;
                 setProducts(prods);
@@ -2884,6 +2963,7 @@ var Manufacturer = function Manufacturer() {
     } else {
       return manufacturers.map(function (manufacturer) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+          id: manufacturer.id,
           children: manufacturer.name
         }, manufacturer.id);
       });
@@ -2920,6 +3000,9 @@ var Manufacturer = function Manufacturer() {
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     fetchManufacturers();
   }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    fetchProducts();
+  }, [selected]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_AppContainer__WEBPACK_IMPORTED_MODULE_2__.default, {
       title: "Manufacturers",
