@@ -1,18 +1,67 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import AppContaner from './AppContainer';
-//import axios from 'axios';
+import api from '../api';
 
 const Home = () => {
+    const [products, setProducts] = useState(null);
 
-    // const fetch= async()=>{
-    //     const res= await axios.get('http://localhost:8000/api/products');
-    //     console.log(res);
-    // }
+    const fetchProducts = async () => {
+        api.getAllProducts().then(res => {
+            const result = res.data;
+            setProducts(result.products);
+        })
+    };
 
-    // useEffect(()=>{
-    //     fetch();
-    // });
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    const renderProducts = () => {
+        if (!products) {
+            return (
+                <tr>
+                    <td colSpan='4'>
+                        Loading products...
+                    </td>
+                </tr>
+            )
+        }
+        if (products.length === 0) {
+            return (
+                <tr>
+                    <td colSpan='4'>
+                        There are no products yet. Add some.
+                    </td>
+                </tr>
+            )
+        }
+
+        return products.map((product) => (
+            <tr key={product.id}>
+                <td> {product.id} </td>
+                <td> {product.name} </td>
+                <td> {product.description} </td>
+                <td> {product.price} </td>
+                <td>
+                    <Link className="btn btn-warning" to={`/edit/${product.id}`}>
+                        Edit
+                    </Link>
+                    <button type="button" className="btn btn-danger" onClick={() => {
+                        api.deleteProduct(product.id)
+                            .then(fetchProducts)
+                            .catch(err => {
+                                alert('Failed to remove product with id: ' + product.id)
+                            });
+                    }}>
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        ));
+    }
+
+
     return (
         <AppContaner title="Products">
             <Link to="/add" className="btn btn-primary">Add Product</Link>
@@ -21,21 +70,13 @@ const Home = () => {
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Title</th>
+                            <th>Name</th>
                             <th>Description</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Sample Title</td>
-                            <td>Sample Description</td>
-                            <td>
-                                <Link to="/edit/1" className="btn btn-warning"> Edit</Link>
-                                <Link to="/delete" className="btn btn-danger">Delete</Link>
-                            </td>
-                        </tr>
+                        {renderProducts()}
                     </tbody>
                 </table>
             </div>

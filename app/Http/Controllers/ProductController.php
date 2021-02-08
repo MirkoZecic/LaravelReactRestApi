@@ -16,7 +16,6 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        //$response = APIHelpers::createAPIResponse(false, 200, '', $products);
         return response()->json(['products' => $products, 'status' => 200]);
     }
 
