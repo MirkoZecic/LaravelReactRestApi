@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Manufacturer;
+use App\Models\Product;
 
-class Product extends Model
+class Manufacturer extends Model
 {
     use HasFactory;
 
-    public function manufacturer()
+    public function products()
     {
-        return $this->belongsTo(Manufacturer::class);
+        return $this->hasMany(Product::class);
     }
 }

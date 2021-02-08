@@ -19,7 +19,8 @@ const Edit = () => {
             let product = {
                 "name": name,
                 "description": description,
-                "price": price
+                "price": price,
+                "manufacturer_id": manufacturer_id
             };
             await api.updateProduct(product, id);
             history.push('/');

@@ -12,4 +12,9 @@ export default {
         axios.patch(`${BASE_API_URL}/products/${id}`, product),
     deleteProduct: (id) =>
         axios.delete(`${BASE_API_URL}/products/${id}`),
+
+    getAllManufacturers: () =>
+        axios.get(`${BASE_API_URL}/manufacturers`),
+    getAllManufecturerProducts: (id) =>
+        axios.get(`${BASE_API_URL}/manufacturers/${id}`)
 }

@@ -8,10 +8,14 @@ import {
 import Home from './components/Home';
 import Add from './components/Add';
 import Edit from './components/Edit';
+import Manufacturers from './components/Manufacturers';
+import Navbar from './components/Navbar';
 
 const App = () => {
     return (
         <Router className="App__container">
+            <Navbar />
+
             <Switch>
                 <Route exact path="/">
                     <Home />
@@ -23,6 +27,10 @@ const App = () => {
 
                 <Route path="/edit/:id">
                     <Edit />
+                </Route>
+
+                <Route path="/manufacturers">
+                    <Manufacturers />
                 </Route>
             </Switch>
         </Router>

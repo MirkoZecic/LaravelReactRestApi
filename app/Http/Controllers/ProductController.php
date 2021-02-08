@@ -31,6 +31,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
+        $product->manufacturer_id = $request->manufacturer_id;
         $product_save = $product->save();
         if ($product_save) {
             return response()->json(['product' => $product, 'status' => 200]);
@@ -64,6 +65,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
+        $product->manufacturer_id = $request->manufacturer_id;
         $product_update = $product->save();
         if ($product_update) {
             return response()->json(['product' => $product, 'status' => 200]);

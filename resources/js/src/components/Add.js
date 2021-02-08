@@ -1,15 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import AppContaner from './AppContainer';
 import api from '../api';
 
-
 const Add = () => {
     const history = useHistory();
     const [loading, setLoading] = useState(false);
+    const [loadingManufacturers, setLoadingManufacturers] = useState(false);
+
+    const [manufacturers, setManufacturers] = useState([]);
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
+    const [dropDown, setDropDown] = useState([]);
 
 
     const onAddSubmit = async () => {
@@ -18,7 +22,8 @@ const Add = () => {
             let product = {
                 "name": title,
                 "description": description,
-                "price": price
+                "price": price,
+                "manufacturer_id": dropDown
             };
             await api.addProduct(product);
             history.push('/');
@@ -27,6 +32,38 @@ const Add = () => {
         } finally {
             setLoading(false);
         }
+    }
+
+    const fetchManufacturers = async () => {
+        setLoadingManufacturers(true);
+        api.getAllManufacturers().then(res => {
+            const result = res.data;
+            const mans = result.manufacturers;
+            setManufacturers(mans);
+        })
+        setLoadingManufacturers(false);
+    };
+
+    useEffect(() => {
+        fetchManufacturers();
+    }, []);
+
+    const ispisiManufacturere = () => {
+        if (loadingManufacturers) {
+            return (
+                <option>Loading manufacturers</option>
+            );
+        } else {
+            return manufacturers.map((manufacturer) => (
+                <option key={manufacturer.id} >{manufacturer.name}</option>
+            ));
+        }
+    }
+
+
+    const handleChange = (e) => {
+        setDropDown(e.id);
+        console.log(e.target.value);
     }
 
     return (
@@ -43,6 +80,12 @@ const Add = () => {
                 <div className="form-group">
                     <label>Price</label>
                     <input className="form-control" type="text" value={price} onChange={e => setPrice(e.target.value)} />
+                </div>
+                <div className="form-group">
+                    <label>Manufacturer</label>
+                    <select onChange={handleChange} className="custom-select" aria-label="Default select example" >
+                        {ispisiManufacturere()}
+                    </select>
                 </div>
                 <div className="form-group">
                     <button type="button" className="btn btn-success" onClick={onAddSubmit} disabled={loading}>{loading ? 'Loading...' : 'Add'}</button>
