@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\ManufacturerSeeder;
+use Database\Seeders\ProductSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,5 +16,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(ManufacturerSeeder::class);
+        $this->call(ProductSeeder::class);
     }
 }

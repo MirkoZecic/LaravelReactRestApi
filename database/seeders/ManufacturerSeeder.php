@@ -15,15 +15,20 @@ class ManufacturerSeeder extends Seeder
     public function run()
     {
         DB::table('manufacturers')->insert([[
-            'name' => 'Samsung'
+            'name' => 'Samsung',
+            'country' => 'South Korea'
         ], [
-            'name' => 'Nokia'
+            'name' => 'Nokia',
+            'country' => 'Finnish'
         ], [
-            'name' => 'iPhone'
+            'name' => 'iPhone',
+            'country' => 'USA'
         ], [
-            'name' => 'Huawei'
+            'name' => 'Huawei',
+            'country' => 'China'
         ], [
-            'name' => 'Xiaomi'
+            'name' => 'Xiaomi',
+            'country' => 'China'
         ]]);
     }
 }
